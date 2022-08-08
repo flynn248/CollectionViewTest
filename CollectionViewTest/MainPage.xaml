@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CollectionViewTest.MainPage"
+             xmlns:System="clr-namespace:System;assembly=mscorlib">
+
+    <Grid RowDefinitions="Auto,Auto,*,*">
+        <Label Text="Pan inside of purple zone."
+               FontSize="30"
+               FontAttributes="Bold"/>
+        <CollectionView Grid.Row="1"
+                        SelectionMode="Single"
+                        SelectionChanged="CollectionView_SelectionChanged"
+                        BackgroundColor="MediumPurple">
+            <CollectionView.ItemsSource>
+                <x:Array Type="{x:Type System:Int32}">
+                    <System:Int32>0</System:Int32>
+                    <System:Int32>1</System:Int32>
+                    <System:Int32>2</System:Int32>
+                    <System:Int32>3</System:Int32>
+                    <System:Int32>4</System:Int32>
+                    <System:Int32>5</System:Int32>
+                </x:Array>
+            </CollectionView.ItemsSource>
+            <CollectionView.GestureRecognizers>
+                <PanGestureRecognizer TouchPoints="1"
+                                      PanUpdated="PanGestureRecognizer_PanUpdated"/>
+            </CollectionView.GestureRecognizers>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type System:Int32}">
+                    <Label Text="{Binding .}"
+                           HeightRequest="100"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           Padding="6,0,0,0"
+                           VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="Center"/>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="3" VerticalItemSpacing="0" HorizontalItemSpacing="0"/>
+            </CollectionView.ItemsLayout>
+        </CollectionView>
+
+        <Label Grid.Row="2" 
+               Text="Not Panning"
+               HorizontalTextAlignment="Center"
+               VerticalTextAlignment="Center"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               HeightRequest="100"
+               WidthRequest="100"
+               Margin="0"
+               BackgroundColor="LightCoral"
+               InputTransparent="True"
+               x:Name="SlipNSlide">
+        </Label>
+
+        <Label Grid.Row="3"
+               x:Name="SelectedItem"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               FontAttributes="Bold"
+               FontSize="24"/>
+    </Grid>
+
+</ContentPage>
