@@ -2,16 +2,184 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CollectionViewTest.MainPage"
-             xmlns:System="clr-namespace:System;assembly=mscorlib">
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Application.PanGestureRecognizerShouldRecognizeSimultaneously="True"
+             xmlns:viewmodel="clr-namespace:CollectionViewTest"
+             x:DataType="viewmodel:VM"
+             xmlns:cv="clr-namespace:MauiApp1.CustomView">
 
-    <Grid RowDefinitions="Auto,Auto,*,*">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="Day" TargetType="Label">
+                <Setter Property="HeightRequest" Value="21"/>
+                <Setter Property="FontSize" Value="15"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="Padding" Value="4,0,0,0"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="BackgroundColor" Value="Pink"/>
+            </Style>
+            <Style x:Key="DayB" TargetType="Button">
+                <Setter Property="HeightRequest" Value="21"/>
+                <Setter Property="FontSize" Value="15"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="Padding" Value="4,0,0,0"/>
+                <Setter Property="BackgroundColor" Value="Pink"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid RowDefinitions="Auto,Auto,*,*,*">
+
         <Label Text="Pan inside of purple zone."
                FontSize="30"
                FontAttributes="Bold"/>
-        <CollectionView Grid.Row="1"
+
+        <!--<Grid Grid.Row="1"
+              RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto"
+              ColumnDefinitions="*,*,*,*,*,*"
+              IsVisible="false">
+            -->
+        <!--<Grid.GestureRecognizers>
+                <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated"
+                                      TouchPoints="1"/>
+            </Grid.GestureRecognizers>-->
+        <!--
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal"/>
+                    <VisualState x:Name="Selected">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="#7DB8A6FF"/>
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+            <Button Grid.Row="0"
+                   Grid.Column="0"
+                   Text="{Binding TestTxt.SampleText}"
+                   Style="{StaticResource DayB}">
+
+
+            </Button>
+            -->
+        <!--#region Grid Day Layout Test -->
+        <!--<Label Grid.Row="0"
+                   Grid.Column="1"
+                   Text="0"
+                   Style="{StaticResource Day}"/>
+            <Label Grid.Row="0"
+                   Grid.Column="2"
+                   Text="0"
+                   Style="{StaticResource Day}"/>
+            <Label Grid.Row="0"
+                   Grid.Column="3"
+                   Text="0"
+                   Style="{StaticResource Day}"/>
+            <Label Grid.Row="0"
+                   Grid.Column="4"
+                   Text="0"
+                   Style="{StaticResource Day}"/>
+            <Label Grid.Row="0"
+                   Grid.Column="5"
+                   Text="0"
+                   Style="{StaticResource Day}"/>
+            <Label Grid.Row="1"
+                   Grid.Column="0"
+                   Text="0"
+                   Style="{StaticResource Day}"/>
+            <Label Grid.Row="1"
+                   Grid.Column="1"
+                   Text="0"
+                   Style="{StaticResource Day}"/>
+            <Label Grid.Row="1"
+                   Grid.Column="2"
+                   Text="0"
+                   Style="{StaticResource Day}"/>
+            <Label Grid.Row="1"
+                   Grid.Column="3"
+                   Text="0"
+                   Style="{StaticResource Day}"/>
+            <Label Grid.Row="1"
+                   Grid.Column="4"
+                   Text="0"
+                   Style="{StaticResource Day}"/>
+            <Label Grid.Row="1"
+                   Grid.Column="5"
+                   Text="0"
+                   Style="{StaticResource Day}"/>-->
+        <!--#endregion-->
+        <!--
+        </Grid>-->
+        <CollectionView Grid.Row="4"
+                        BackgroundColor="Purple">
+            <CollectionView.ItemsSource>
+                <x:Array Type="{x:Type System:Int32}">
+
+                    <System:Int32>0</System:Int32>
+                    <System:Int32>1</System:Int32>
+                    <System:Int32>2</System:Int32>
+                    <System:Int32>3</System:Int32>
+                    <System:Int32>4</System:Int32>
+                    <System:Int32>5</System:Int32>
+                </x:Array>
+            </CollectionView.ItemsSource>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type System:Int32}">
+                    <Label Text="{Binding .}"
+                           HeightRequest="100"
+                           WidthRequest="100"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           Padding="6,0,0,0"
+                           VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="Center"/>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Span="3" Orientation="Horizontal" HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
+            </CollectionView.ItemsLayout>
+        </CollectionView>
+        <cv:CustomView Grid.Row="1"
                         SelectionMode="Single"
                         SelectionChanged="CollectionView_SelectionChanged"
-                        BackgroundColor="MediumPurple">
+                        BackgroundColor="MediumPurple"
+                        x:Name="MyCollectionView"
+                        HandlerChanging="a_HandlerChanging">
+            <cv:CustomView.ItemsSource>
+                <x:Array Type="{x:Type System:Int32}">
+                    <System:Int32>0</System:Int32>
+                    <System:Int32>1</System:Int32>
+                    <System:Int32>2</System:Int32>
+                    <System:Int32>3</System:Int32>
+                    <System:Int32>4</System:Int32>
+                    <System:Int32>5</System:Int32>
+                </x:Array>
+            </cv:CustomView.ItemsSource>
+            <cv:CustomView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type System:Int32}">
+                    <Label Text="{Binding .}"
+                           HeightRequest="100"
+                           WidthRequest="100"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           Padding="6,0,0,0"
+                           VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="Center"/>
+                </DataTemplate>
+            </cv:CustomView.ItemTemplate>
+            <cv:CustomView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal"/>
+            </cv:CustomView.ItemsLayout>
+        </cv:CustomView>
+        <!--<CollectionView Grid.Row="1"
+                SelectionMode="Single"
+                SelectionChanged="CollectionView_SelectionChanged"
+  
+                        ItemSizingStrategy="MeasureFirstItem"
+                        HandlerChanging="a_HandlerChanging"
+                        HandlerChanged="a_HandlerChanged"
+                        HorizontalOptions="FillAndExpand">
             <CollectionView.ItemsSource>
                 <x:Array Type="{x:Type System:Int32}">
                     <System:Int32>0</System:Int32>
@@ -22,46 +190,77 @@
                     <System:Int32>5</System:Int32>
                 </x:Array>
             </CollectionView.ItemsSource>
-            <CollectionView.GestureRecognizers>
-                <PanGestureRecognizer TouchPoints="1"
-                                      PanUpdated="PanGestureRecognizer_PanUpdated"/>
-            </CollectionView.GestureRecognizers>
+            -->
+        <!--<CollectionView.GestureRecognizers>
+                <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated"
+                                      TouchPoints="1"/>
+            </CollectionView.GestureRecognizers>-->
+        <!--
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="{x:Type System:Int32}">
+                <DataTemplate x:DataType="{x:Type System:Int32}" x:Name="pie" >
                     <Label Text="{Binding .}"
-                           HeightRequest="100"
-                           FontSize="20"
-                           FontAttributes="Bold"
-                           Padding="6,0,0,0"
-                           VerticalTextAlignment="Center"
-                           HorizontalTextAlignment="Center"/>
+                   HeightRequest="100"
+                   FontSize="15"
+                   FontAttributes="Bold"
+                   Padding="4,0,0,0"
+                   VerticalTextAlignment="Center"
+                   HorizontalTextAlignment="Center"
+                           BackgroundColor="DeepPink"
+                           HorizontalOptions="FillAndExpand">
+                        -->
+        <!--<Label.GestureRecognizers>
+                            <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated"
+                                      TouchPoints="1"/>
+                        </Label.GestureRecognizers>-->
+        <!--
+                    </Label>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
             <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" Span="3" VerticalItemSpacing="0" HorizontalItemSpacing="0"/>
+                <GridItemsLayout Orientation="Vertical" Span="12" VerticalItemSpacing="0" HorizontalItemSpacing="0"/>
             </CollectionView.ItemsLayout>
-        </CollectionView>
+        </CollectionView>-->
 
         <Label Grid.Row="2" 
                Text="Not Panning"
                HorizontalTextAlignment="Center"
                VerticalTextAlignment="Center"
-               HorizontalOptions="Center"
+               HorizontalOptions="Start"
                VerticalOptions="Center"
-               HeightRequest="100"
-               WidthRequest="100"
+               HeightRequest="50"
+               WidthRequest="50"
                Margin="0"
                BackgroundColor="LightCoral"
-               InputTransparent="True"
-               x:Name="SlipNSlide">
+               InputTransparent="False"
+               x:Name="SlipNSlide"
+               AnchorX="0"
+               AnchorY="0">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"
+                                      NumberOfTapsRequired="1"/>
+            </Label.GestureRecognizers>
+            <Label.Clip>
+                <RectangleGeometry Rect="0,30,400,900"/>
+            </Label.Clip>
         </Label>
+
+
+
 
         <Label Grid.Row="3"
                x:Name="SelectedItem"
-               HorizontalOptions="Center"
-               VerticalOptions="Center"
+               HorizontalOptions="Fill"
+               VerticalOptions="Fill"
                FontAttributes="Bold"
-               FontSize="24"/>
+               FontSize="24"
+                   Text="Pineapples"
+                   BackgroundColor="Pink">
+            <Label.GestureRecognizers>
+                <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated"
+                                      TouchPoints="1"/>
+            </Label.GestureRecognizers>
+        </Label>
+
     </Grid>
 
 </ContentPage>
