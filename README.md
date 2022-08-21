@@ -18,8 +18,8 @@ The code in the example demonstrates a method to recognize a pan gesture without
 
 An event listener is added to a specific `CollectionView` where the pan gesture is desired.
 When a touch event happens, the listener will determine what kind of event it is and then process it accordingly.
-
-
+If it is a scroll event, the listener will process that and send a new `ScrollEventArg` back to the view via an Interface.
+The view can then handle the event accordingly.
 
 ## IOS Resolution
 Although the issue wasn't tested on IOS, the problem would probably also happen.
@@ -32,5 +32,9 @@ ios:Application.PanGestureRecognizerShouldRecognizeSimultaneously="True"
 
 This should allow an added `PanGestureRecognizer` to be recognized and then allow gestures to still pass to the `CollectionView` for selection and scroll events.
 
-**Once an update is conducted, this section will be updated to reflect the results.**
+**Once a test is conducted, this section will be updated to reflect the results**.
 
+## Known Issue
+Clicking in the `CollectionView` will send a new `ScrollEventArg` with a `MotionEventAction` of either `Down` or `Up`.
+Sending these are useful to allow the View to handle when a scroll event is about to start or when it ends.
+However, this has the potential to cause issues depending on the desired behavior since this will fire **no matter which event was originally triggered**.
