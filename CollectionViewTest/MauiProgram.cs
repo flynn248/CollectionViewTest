@@ -1,4 +1,6 @@
-﻿namespace CollectionViewTest;
+﻿using CollectionViewTest.ViewModel;
+
+namespace CollectionViewTest;
 
 public static class MauiProgram
 {
@@ -13,7 +15,7 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
-		builder.Services.AddSingleton<ViewModel.MyViewModel>();
+		builder.Services.AddSingleton<MyViewModel>();
 		builder.Services.AddSingleton<MainPage>();
 
 		return builder.Build();

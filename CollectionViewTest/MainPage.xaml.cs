@@ -1,15 +1,11 @@
 ﻿#if ANDROID
 using Android.Views;
 using CollectionViewTest.Platforms.Android.Controls;
+using CollectionViewTest.Platforms.Android.Interfaces;
 #endif
-using System.Diagnostics;
+
 namespace CollectionViewTest;
-/* 08/18/2022
- * Having the interface is the best option. Just need to clean up the code a bit and then go from there.
- * It is working exactly how it should be and opens the door for other future ideas and use cases.
- * Need to consider renaming different aspects when implementing it.
- * 
- */
+
 public partial class MainPage : ContentPage
 #if ANDROID
     , IScrollEvent
@@ -25,7 +21,6 @@ public partial class MainPage : ContentPage
         {
             if (view == MyCollectionView)
             {
-                //handler.PlatformView.AddOnItemTouchListener(new RecyclerTouchListener(handler.Context, (RecyclerView)view.ToPlatform(handler.MauiContext), this));
                 handler.PlatformView.AddOnItemTouchListener(new RecyclerTouchListener(handler.Context, this));
             }
         });
@@ -44,7 +39,6 @@ public partial class MainPage : ContentPage
                 break;
             case MotionEventActions.Move:
                 SlipNSlide.TranslationX = x + e.TotalX;
-                //Debug.WriteLine($"TrX: {SlipNSlide.TranslationX:f2} :: TotX: {e.TotalX} :: x{x}");
                 break;
             case MotionEventActions.Up:
                 x = SlipNSlide.TranslationX;
