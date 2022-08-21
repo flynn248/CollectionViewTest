@@ -1,5 +1,6 @@
 ﻿using Android.Content;
 using Android.Views;
+using AndroidX.RecyclerView.Widget;
 using CollectionViewTest.Platforms.Android.Interfaces;
 
 namespace CollectionViewTest.Platforms.Android.Controls;
